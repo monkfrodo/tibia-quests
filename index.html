@@ -1,1 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Tibia Party Manager — Quests</title>
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
 
+<h1>Formação de Times — Quests</h1>
+
+<div class="box">
+  <label>Nickname do personagem</label>
+  <input id="nick" placeholder="Ex.: Kevin Eger">
+
+  <button onclick="buscarChar()">Buscar personagem</button>
+
+  <div id="charData"></div>
+
+  <label>Selecione a quest</label>
+  <select id="quest" onchange="atualizarTela()">
+    <option value="The Inquisition">The Inquisition</option>
+    <option value="POI">POI</option>
+    <option value="Warzone">Warzone</option>
+    <option value="Killing in the Name">Killing in the Name of</option>
+  </select>
+
+  <label>Horário sugerido</label>
+  <input type="time" id="horario">
+
+  <button onclick="registrar()">Registrar participação</button>
+</div>
+
+<div class="box">
+  <h2>Participantes</h2>
+  <div id="lista"></div>
+</div>
+
+<div class="box">
+  <h2>Média de horário provável</h2>
+  <div id="mediaHorario"></div>
+</div>
+
+<a href="bosses.html" style="color:#4dabff">Página de Bosses →</a>
+
+<script src="assets/script.js"></script>
+</body>
+</html>
