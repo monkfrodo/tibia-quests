@@ -1,6 +1,6 @@
 body {
-  background: #0a0f1e;
-  color: #e0e6f7;
+  background: #0d111c;
+  color: #d7e2ff;
   font-family: Arial, sans-serif;
   padding: 30px;
   max-width: 900px;
@@ -9,7 +9,6 @@ body {
 
 h1, h2 {
   color: #4dabff;
-  margin-bottom: 10px;
 }
 
 .box {
@@ -33,14 +32,14 @@ input, select {
   border: none;
   border-radius: 6px;
   background: #1a2540;
-  color: #e0e6f7;
+  color: #d7e2ff;
 }
 
 button {
   margin-top: 20px;
   padding: 12px;
   width: 100%;
-  background: #3b82f6;
+  background: #4a7fff;
   font-weight: bold;
   border: none;
   border-radius: 6px;
@@ -49,7 +48,7 @@ button {
 }
 
 button:hover {
-  background: #5390ff;
+  background: #6f99ff;
 }
 
 .list-item {
@@ -57,4 +56,5 @@ button:hover {
   padding: 12px;
   border-radius: 6px;
   margin-bottom: 10px;
+  border: 1px solid #273662;
 }
