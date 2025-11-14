@@ -1,21 +1,29 @@
+/* ============================================
+   CONFIGURAÇÃO
+   ============================================ */
+
 const API = "https://script.google.com/macros/s/AKfycbzhrtEF6zgkbJFpCGRDzClC1JOgrgtgnP2CRePpVkPsWmn_3XfgFj-T3qtkrNp8ftlwTA/exec";
 
-///////////////////////////////////////
-// BUSCAR DADOS DO CHAR
-///////////////////////////////////////
-async function buscarChar() {
-  const nick = document.getElementById("nick").value;
+/* ============================================
+   BUSCAR CHAR
+   ============================================ */
 
-  if (!nick.trim()) {
-    alert("Digite o nickname!");
+async function buscarChar() {
+  const nick = document.getElementById("nick").value.trim();
+
+  if (!nick) {
+    alert("Digite o nickname do personagem.");
     return;
   }
 
   const res = await fetch(`${API}?route=char-info&name=${encodeURIComponent(nick)}`);
   const dados = await res.json();
 
-  if (!dados.character) {
-    document.getElementById("charData").innerHTML = `<p style="color:red">Personagem não encontrado.</p>`;
+  if (!dados.character || !dados.character.name) {
+    document.getElementById("charData").innerHTML = `
+      <p style="color:#ff7070;">Personagem não encontrado.</p>
+    `;
+    window.charInfo = null;
     return;
   }
 
@@ -33,12 +41,13 @@ async function buscarChar() {
   `;
 }
 
-///////////////////////////////////////
-// REGISTRAR PARTICIPAÇÃO
-///////////////////////////////////////
+/* ============================================
+   REGISTRAR PARTICIPAÇÃO
+   ============================================ */
+
 async function registrar() {
   if (!window.charInfo) {
-    alert("Busque o personagem antes de registrar!");
+    alert("Busque o personagem primeiro.");
     return;
   }
 
@@ -46,15 +55,15 @@ async function registrar() {
   const horario = document.getElementById("horario").value;
 
   if (!horario) {
-    alert("Escolha ou sugira um horário!");
+    alert("Escolha um horário.");
     return;
   }
 
   const payload = {
-    nickname: window.charInfo.nickname,
-    vocacao: window.charInfo.vocacao,
-    level: window.charInfo.level,
-    world: window.charInfo.world,
+    nickname: charInfo.nickname,
+    vocacao: charInfo.vocacao,
+    level: charInfo.level,
+    world: charInfo.world,
     quest,
     horario
   };
@@ -68,16 +77,22 @@ async function registrar() {
   calcularMedia();
 }
 
-///////////////////////////////////////
-// LISTAR INSCRITOS
-///////////////////////////////////////
+/* ============================================
+   LISTAR INSCRITOS
+   ============================================ */
+
 async function listar() {
   const res = await fetch(`${API}?route=list`);
   const dados = await res.json();
 
-  const questSelecionada = document.getElementById("quest").value;
+  const questSel = document.getElementById("quest").value;
 
-  const filtrados = dados.filter(x => x.quest === questSelecionada);
+  const filtrados = dados.filter(x => x.quest === questSel);
+
+  if (!filtrados.length) {
+    document.getElementById("lista").innerHTML = "<p>Ninguém inscrito ainda.</p>";
+    return;
+  }
 
   let html = "";
 
@@ -90,12 +105,13 @@ async function listar() {
     `;
   });
 
-  document.getElementById("lista").innerHTML = html || "<p>Ninguém inscrito ainda.</p>";
+  document.getElementById("lista").innerHTML = html;
 }
 
-///////////////////////////////////////
-// MÉDIA DE HORÁRIOS
-///////////////////////////////////////
+/* ============================================
+   MÉDIA DE HORÁRIOS
+   ============================================ */
+
 async function calcularMedia() {
   const quest = document.getElementById("quest").value;
 
@@ -106,9 +122,10 @@ async function calcularMedia() {
     dados.media ? `<b>Média provável:</b> ${dados.media}` : "Nenhuma sugestão ainda.";
 }
 
-///////////////////////////////////////
-// ATUALIZAÇÃO AUTOMÁTICA QUANDO TROCAR QUEST
-///////////////////////////////////////
+/* ============================================
+   ATUALIZA TELA AO MUDAR QUEST
+   ============================================ */
+
 function atualizarTela() {
   listar();
   calcularMedia();
