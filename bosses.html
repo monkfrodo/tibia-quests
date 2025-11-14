@@ -1,1 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Tibia Party Manager — Bosses</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
+<h1>Formação de Times — Bosses</h1>
+
+<div class="box">
+  <label>Nickname do personagem</label>
+  <input id="nick" placeholder="Ex.: Monk Frodo">
+
+  <button onclick="buscarChar()">Buscar personagem</button>
+
+  <div id="charData"></div>
+
+  <label>Selecione o boss</label>
+  <select id="quest" onchange="atualizarTela()">
+    <option value="Ferumbras">Ferumbras</option>
+    <option value="Morgaroth">Morgaroth</option>
+    <option value="Orshabaal">Orshabaal</option>
+    <option value="Ghazbaran">Ghazbaran</option>
+    <option value="Zulazza">Zulazza The Corruptor</option>
+  </select>
+
+  <label>Horário sugerido</label>
+  <input type="time" id="horario">
+
+  <button onclick="registrar()">Registrar participação</button>
+</div>
+
+<div class="box">
+  <h2>Participantes</h2>
+  <div id="lista"></div>
+</div>
+
+<div class="box">
+  <h2>Média de horário provável</h2>
+  <div id="mediaHorario"></div>
+</div>
+
+<p><a href="index.html" style="color:#4dabff;">← Voltar para Quests</a></p>
+
+<script src="script.js"></script>
+</body>
+</html>
